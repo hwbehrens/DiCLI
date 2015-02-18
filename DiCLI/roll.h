@@ -56,7 +56,9 @@ void Roll::process_token(std::string token){
     size_t cursor = 0;
     dice_count = extract(token, cursor);
     dice_size = extract(token, cursor);
+    bool is_negative = (token[cursor-1] == '-');
     roll_mod = extract(token, cursor);
+    if (is_negative) roll_mod *= -1;
     valid_roll = (dice_count > 0 && dice_size >= 2 && dice_size <= 100);
 }
 

@@ -23,8 +23,12 @@
 
 #include "roll.h"
 
+static const std::string help_message = "\nEnter rolls as XdY or XdY+Z, where:\n     X is the number of dice,\n     Y is the number of sides those dice have, and\n     Z is the modifier, if any.\n\nEx: 1d20, 2d4+2, 1d100, etc.\n";
+static const std::string intro_message = "('?' for help, return to reroll last roll, 'X' to exit)";
+static const std::string capstone = "\nr: ";
+
 int main(){
-    printf("Ready to roll! ('x' to exit, '?' for help, return to reroll)\nr: ");
+    printf("%s\nr: ",intro_message.c_str());
     
     bool time_to_exit = false;
     std::string token = "";
@@ -36,24 +40,20 @@ int main(){
             time_to_exit = true;
         }
         else if (token[0] == 'h' || token[0] == 'H' || token[0] == '?'){
-            std::cout << "\nEnter rolls as XdY or XdY+Z, where:\n"
-            <<"     X is the number of dice,\n"
-            << "     Y is the number of sides those dice have, and\n"
-            <<"     Z is the modifier, if any.\n\n"
-            << "You may use '.' in place of 'd' if you'd like to use the numpad."
-            <<"\n\nYou may press return to reroll, or 'x' to quit.\n\nr:";
+            std::cout << help_message << capstone;
             std::cout.flush();
         }
-        else if (token.size() == 0){
-            current.do_roll(); //reroll
+        else if (token.size() == 0 && current.is_valid()){
+            current.do_roll(); //use most recent valid token
         }
         else{
-            current = Roll();
+            current = Roll(); //prep for new token
             current.process_token(token);
             if (current.is_valid())
                 current.do_roll();
             else{
-                std::cout << "   = error\nr: ";
+                current = Roll(); //discard invalid token
+                std::cout << "   = [invalid roll]" << capstone;
                 std::cout.flush();
             }
         }
