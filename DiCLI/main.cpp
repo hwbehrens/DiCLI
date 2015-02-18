@@ -24,7 +24,7 @@
 #include "roll.h"
 
 static const std::string help_message = "\nEnter rolls as XdY or XdY+Z, where:\n     X is the number of dice,\n     Y is the number of sides those dice have, and\n     Z is the modifier, if any.\n\nEx: 1d20, 2d4+2, 1d100, etc.\n";
-static const std::string intro_message = "('?' for help, return to reroll last roll, 'X' to exit)";
+static const std::string intro_message = "Welcome to DiCLI!\n('?' for help, return to reroll last roll, 'X' to exit)";
 static const std::string capstone = "\nr: ";
 
 int main(){
