@@ -92,9 +92,9 @@ void Roll::do_roll(){
     else{
         if (dice_size == 100)
             std::cout << "%";
-        if ((dice_count * dice_size) == rand)
+        if ((dice_count * dice_size) == result)
             std::cout << " (MAX)";
-        else if (rand == dice_count)
+		else if (dice_count == result)
             std::cout << " (MIN)";
     }
     
